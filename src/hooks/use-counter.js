@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 
-const useCounter = () => {
+//  forwards = true gives the function's parameter a default value, making it optional to pass a value when invoking.
+const useCounter = (forwards = true) => {
 	const [counter, setCounter] = useState(0);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCounter((prevCounter) => prevCounter + 1);
+			if (forwards) {
+				setCounter((prevCounter) => prevCounter + 1);
+			} else {
+				setCounter((prevCounter) => prevCounter - 1);
+			}
 		}, 1000);
 
 		return () => clearInterval(interval);
-	}, []);
+	}, [forwards]);
 
 	return counter;
 };
